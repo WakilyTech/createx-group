@@ -1,0 +1,203 @@
+<app-header></app-header>
+
+<!-- <div class="page-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-title-item text-center">
+                    <h2 class="title">Détail</h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!--====== PAGE TITLE PART ENDS ======-->
+<!--====== SHOP DETAILS PART START ======-->
+<div class="shop-details-area pt-120 pb-115 gray-bg c-detail">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="shop-product-area ml-30">
+                    <div class="shop-active">
+                        <div class="shop-product-item" >
+                            <img [src]="location?.images[0].url" alt="" class="c-img">
+                        </div>
+                        <!-- <div class="shop-product-item">
+                            <img src="assets/images/shop-product.jpg" alt="">
+                        </div>
+                        <div class="shop-product-item">
+                            <img src="assets/images/shop-product.jpg" alt="">
+                        </div> -->
+                    </div>
+                    <div class="shop-product-thumb mt-30">
+                        <div class="row" >
+                            <div class="col-lg-4" *ngFor="let image of listImages; let i=index">
+                                <img class="c-image" [src]="image?.url" alt=""  (mouseenter)="displayImg = i">
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="shop-details-content ml-30">
+                    <div class="review">
+                        <!-- <ul>
+                            <li><i class="fas fa-star"></i></li>
+                            <li><i class="fas fa-star"></i></li>
+                            <li><i class="fas fa-star"></i></li>
+                            <li><i class="fas fa-star"></i></li>
+                            <li><i class="fas fa-star"></i></li>
+                            <li><span>23 Reviews</span></li>
+                        </ul> -->
+                        <span><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{location.zone}} - {{location.adresse}}</span>
+                        <h4 class="title">{{location?.typeBiens?.libelle}}</h4>
+                    </div>
+                    <div class="price c-price">
+                        <ul class="cprice">
+                            <li>{{location.montant | number:'1.0-0':'fr'}} XOF <span *ngIf="location?.natureBien?.libelle == 'location'" class="mois"> / mois  </span></li>
+                        </ul>
+                    </div>
+                    <div class="overview" *ngIf="location.description.length != 0">
+                        <h4 class="title">Description</h4>
+                        <p *ngFor="let item of location.description">{{item?.libelle}} : {{item.description}}</p>
+                        <form action="#">
+                            <!-- <div class="list-2 d-sm-flex d-block">
+                                <div class="product-quantity d-flex" id="quantity">
+                                    <button type="button" id="sub" class="sub">-</button>
+                                    <input type="text" id="1" value="0" />
+                                    <button type="button" id="add" class="add">+</button>
+                                </div>
+                                <ul>
+                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-location-arrow"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-share-square"></i></a></li>
+                                </ul>
+                            </div> -->
+                            <button class="main-btn" (click)="initForm(content)" title="Ajouter">Faire une demande de visite</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Faire une demande de visiste</h4>
+
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" [disabled]="desactiverButton">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <div class="row">
+          <div class="col-md-6 form-group">
+            <label for="nom" class="c-label">Nom</label>
+            <div class="input-group">
+              <input id="nom" name="nom" class="form-control" formControlName="nom" [ngClass]="{ 'is-invalid': (submitted || loginForm.get('nom').dirty || loginForm.get('nom').touched) && loginForm.get('nom').errors?.required}">
+              <div *ngIf="loginForm.get('nom').errors" class="invalid-feedback">
+                <div *ngIf="(submitted || loginForm.get('nom').dirty || loginForm.get('nom').touched) && loginForm.get('nom').errors?.required">le nom est obligatoire</div>
+              </div>
+
+           </div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label for="prenom" class="c-label">Prénom</label>
+            <div class="input-group">
+              <input id="prenom" name="prenom" class="form-control" formControlName="prenom" [ngClass]="{ 'is-invalid': (submitted || loginForm.get('prenom').dirty || loginForm.get('prenom').touched) && loginForm.get('prenom').errors?.required}">
+              <div *ngIf="loginForm.get('prenom').errors" class="invalid-feedback">
+                <div *ngIf="(submitted || loginForm.get('prenom').dirty || loginForm.get('prenom').touched) && loginForm.get('prenom').errors?.required">le prénom est obligatoire</div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label for="telephone" class="c-label">Téléphone</label>
+          <div class="input-group">
+            <input id="telephone" name="telephone" class="form-control" formControlName="telephone" [ngClass]="{ 'is-invalid': (submitted || loginForm.get('telephone').dirty || loginForm.get('telephone').touched) && (loginForm.get('telephone').errors?.required || loginForm.get('telephone').errors?.pattern)}">
+            <div *ngIf="loginForm.get('telephone').errors" class="invalid-feedback">
+              <div *ngIf="(submitted || loginForm.get('telephone').dirty || loginForm.get('telephone').touched) && loginForm.get('telephone').errors?.required">le téléphone est obligatoire</div>
+              <div *ngIf="loginForm.get('telephone').errors?.pattern">Numéro téléphone invalide</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 form-group">
+          <label for="email" class="c-label">Email</label>
+          <div class="input-group">
+            <input id="email" name="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': (submitted || loginForm.get('email').dirty || loginForm.get('email').touched ) && (loginForm.get('email').errors?.required || loginForm.get('email').errors?.pattern)}">
+            <div *ngIf="loginForm.get('email').errors" class="invalid-feedback">
+              <div *ngIf="(submitted || loginForm.get('email').dirty || loginForm.get('email').touched ) && loginForm.get('email').errors?.required">l'email est obligatoire</div>
+              <div *ngIf="loginForm.get('email').errors?.pattern">Email invalide</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-md-6 form-group">
+          <label for="sexe" class="c-label">Sexe</label>
+          <select class="form-control" name="sexe" (change)="checknumeroCni()"  formControlName="sexe" [ngClass]="{ 'is-invalid': (submitted || loginForm.get('sexe').dirty || loginForm.get('sexe').touched) && loginForm.get('sexe').errors?.required}">
+            <option value="" disabled>Choisir le sexe</option>
+            <option *ngFor="let ps of tabSexe" value="{{ps.value}}">{{ ps.name }}</option>
+          </select>
+           <div *ngIf="loginForm.get('sexe').errors" class="invalid-feedback">
+             <div *ngIf="(submitted || loginForm.get('sexe').dirty || loginForm.get('sexe').touched) && loginForm.get('sexe').errors?.required">le sexe est obligatoire</div>
+           </div>
+        </div>
+
+        <div class="col-md-6 form-group">
+          <label for="numeroCni" class="c-label">Numero Piéce</label>
+          <div class="input-group">
+            <input id="numeroCni" (blur)="checknumeroCni()" name="numeroCni" class="form-control" formControlName="numeroCni" [ngClass]="{ 'is-invalid': (submitted || loginForm.get('numeroCni').dirty || loginForm.get('numeroCni').touched) && loginForm.get('numeroCni').errors?.required}">
+            <div *ngIf="loginForm.get('numeroCni').errors" class="invalid-feedback">
+              <div *ngIf="(submitted || loginForm.get('numeroCni').dirty || loginForm.get('numeroCni').touched) && loginForm.get('numeroCni').errors?.required">le numéro de piéce est obligatoire</div>
+            </div>
+            <div class="pieceError" *ngIf="numeroCniError!=''">{{numeroCniError}} </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+      <!-- <div class="row">
+
+
+        <div class="col-md-6 form-group">
+          <label for="adresse">Adresse</label>
+          <div class="input-group">
+            <input id="adresse" name="adresse" class="form-control" formControlName="adresse" [ngClass]="{ 'is-invalid': (submitted || loginForm.get('adresse').dirty || loginForm.get('adresse').touched) && loginForm.get('adresse').errors?.required}">
+             <div *ngIf="loginForm.get('adresse').errors" class="invalid-feedback">
+                <div *ngIf="(submitted || loginForm.get('adresse').dirty || loginForm.get('adresse').touched) && loginForm.get('adresse').errors?.required">l'adresse est obligatoire</div>
+              </div>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="text-center">
+
+          <button type="button" class="btn btn-danger" (click)="modal.close('Save click')" style="margin-right: 50px;" [disabled]="desactiverButton">Annuler</button>
+          <button data-dismiss="modal" class="btn btn-info btn-ajou" [disabled]="desactiverButton">
+              <i class="fa fa-spinner fa-pulse" *ngIf="btnAjoutSpinner"></i>&nbsp;&nbsp;Ajouter</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+
+
+
+
+<!--====== SHOP DETAILS PART ENDS ======-->
+<app-footer2></app-footer2>

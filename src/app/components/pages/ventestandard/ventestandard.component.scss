@@ -1,0 +1,220 @@
+.c-imgCard {
+    width: 320px;
+    height: 300px;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+}
+
+.colorLocalite {
+    /* padding-bottom: 5px; */
+    color: #bb3643 !important;
+}
+.c-badge {
+    position: absolute;
+    right: -27px;
+    background-color: #bb3643;
+}
+.c-imageBor {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    height: 240px;
+}
+.search {
+    margin-bottom: 15px;
+    input{
+        padding-left: 17px;
+        border-radius: 5px;
+        width: 77%;
+        height: 38px;
+        margin-right: 20px;
+        border: 1px solid rgb(30 65 132);
+    }
+}
+.btnStyle {
+    color: white !important;
+    text-align: center;
+    margin: auto;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    border: 2px solid #1e4184;
+    padding: 0 25px;
+    font-size: 16px;
+    line-height: 35px;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 5;
+    transition: all 0.4s ease-out 0s;
+    background-color: #1e4183;
+    
+}
+
+
+.btnStyle:hover {
+    border: 2px solid #1e4184;
+    color: #1e4184 !important;
+    background-color: white;
+    font-weight: 700 !important;
+}
+
+.btnStyleSearch {
+    color: white !important;
+    text-align: center;
+    margin: auto;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    border: 2px solid #1e4184;
+    font-size: 16px;
+    padding-right: 11px;
+    line-height: 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 5;
+    transition: all 0.4s ease-out 0s;
+    background-color: #1e4183;
+    
+}
+.btnStyleSearch:hover {
+    border: 2px solid #1e4184;
+    color: #1e4184 !important;
+    background-color: white;
+    font-weight: 700 !important;
+}
+
+.top-btn{
+    margin-top: 20px;
+}
+.c-cardShadow {
+    border-radius: 12px !important;
+    box-shadow: 0px 8px 16px 0px rgb(60 110 203 / 10%);
+    width: 97%;
+}
+.c-btn {
+    color: #fff !important;
+    background-color: #1e4184;
+    border-color: #1e4183;
+    cursor: pointer;
+    margin-right: -24px;
+    margin-top: 12px;
+}
+
+.c-paddingCard {
+    padding: 55px 40px !important;
+    margin-top: -45px !important;
+    margin-left: -20px;
+}
+
+.c-libelle {
+    font-size: 24px !important;
+    line-height: 34px !important;
+    font-weight: 700 !important;
+}
+
+
+
+.c-badge2 {
+    /* top: 20px;
+    left: 35px; */
+    margin-right: 12px;
+    background-color: #1e4183;
+    width: 70px;
+}
+
+.badgeGlo {
+    top: 35px;
+    right: 19px;
+    position: absolute;
+}
+
+
+.page-title-area {
+    background-image: url(/assets/images/imageDownload/coverbanner2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.list-group-item {
+    color: #1e4183;
+    border: 1px solid rgb(30 65 132);
+    cursor: pointer;
+}
+
+.list-group-item.active {
+    background-color: #1e4183;
+    border-color: #1e4183;
+    color: #ffffff;
+}
+
+
+/* #899dc2; */
+
+.list-group-item:hover {
+    background-color: #516180;
+    color: white !important;
+}
+
+.c-btnnn:hover {
+    background-color: #1e4183;
+    color: white !important;
+}
+
+.btn-outline-danger:not(:disabled):not(.disabled).active,
+.btn-outline-danger:not(:disabled):not(.disabled):active,
+.show>.btn-outline-danger.dropdown-toggle {
+    background-color: #1e4183;
+    color: white !important;
+}
+
+.c-btnnn {
+    color: #1e4183 !important;
+    border-color: #1e4183 !important;
+}
+
+.borderRecherche {
+    border: 1px solid #1e4183;
+    border-radius: 12px;
+}
+
+.blog-sidebar-area .sidebar-categories ul li {
+    margin-top: 0px !important;
+}
+
+.loader {
+    width: 500px;
+    margin: 0 300px;
+}
+
+.chargemenent {
+    font-size: 20px;
+}
+
+.loadd {
+    color: #1e4183;
+    margin-left: 70px
+}
+
+.elementVide {
+    width: 320px;
+    margin: 0 auto;
+}
+.vide {
+    text-align: center;
+    margin-top: 100px;
+
+}
+.noData{
+    color: #1e4184;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    margin: 30px;
+}

@@ -1,0 +1,60 @@
+.c-imageIcon{
+  width: 80px;
+}
+
+.page-title-area{
+  background-image: url(/assets/images/imageDownload/imageAda4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* .title{
+  color: #1e4183 !important;
+} */
+
+.c-pre{
+  color: #ffffff !important;
+  padding-top: 30px;
+}
+.imaMetier{
+  height: 160px;
+}
+
+.c-text{
+  color: #1e4183 !important;
+  font-weight: 700;
+  line-height: 23px ;
+  font-family: "GilroyBold";
+}
+.c-partenaire{
+  width: 98px;
+  margin: 35px;
+}
+
+.c-partenaireamsa{
+  height: 80px;
+  width: 98px;
+  margin: 35px;
+}
+
+.c-partenaireaskia{
+  height: 80px;
+    width: 100px;
+    margin: 30px;
+}
+
+.c-partenairefgi{
+  height: 62px;
+    width: 160px;
+    margin: 45px;
+}
+
+.c-partenaireh1{
+  width: 500px;
+    margin: 0 auto;
+    /* background: gray; */
+    text-align: center;
+}
+
+
+

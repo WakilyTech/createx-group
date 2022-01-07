@@ -1,0 +1,70 @@
+.imageDimension {
+    width: 433px;
+    height: 500px;
+    /* width: 370px;
+    height: 250px; */
+}
+
+.imageLocation {
+    width: 100%;
+    height: 280px;
+}
+
+.textColorSpan {
+    color: #fff;
+}
+
+.textColorTitle {
+    color: #fff;
+}
+
+.backgroundVente {
+    background: rgb(0, 34, 73);
+    background: linear-gradient(90deg, rgba(0, 34, 73, 1) 0%, rgba(12, 89, 219, 1) 100%);
+}
+
+.colorIcon {
+    border-top-color: #288843;
+    border-bottom-color: #288843;
+}
+
+.logoDimension {
+    max-width: 80px;
+}
+
+.navbar-brand {
+    margin-right: 120px;
+}
+
+.valTitle {
+    font-size: 20px !important;
+    font-weight: 700;
+    color: #1e4183 !important;
+}
+
+.hrStyle {
+    border: 1px solid #1e4183;
+    width: 1000px;
+    margin: 15px auto;
+}
+
+.c-title {
+    font-size: 20px !important;
+    color: #ba2543 !important;
+    padding-top: 10px !important;
+    border-bottom: 2px #e3eeff solid;
+    padding-bottom: 8px !important;
+    position: relative;
+}
+
+.c-desc {
+    padding-top: 8px !important;
+    line-height: 16px !important;
+}
+.c-desc-top{
+    padding-top: 25px !important;
+}
+
+.c-venteZone {
+    color: #ba2543 !important;
+}

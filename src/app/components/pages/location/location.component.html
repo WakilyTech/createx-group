@@ -1,0 +1,171 @@
+<app-header></app-header>
+<div class="page-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-title-item text-center">
+                    <h2 class="title">Locations Maisons & Appartements</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="shop-area gray-bg pt-100 pb-120">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="card p-4  cardRechercher">
+
+                    <div class="row clearfix">
+                        <div class="col-md-4 col-sm-6 col-12 mt-4 mt-md-0">
+                            <label for="" class="c-label">Localité</label>
+                            <br>
+                            <input type="text" class="c-input" placeholder="Localité" [(ngModel)]="zone">
+                        </div>
+
+                        <div class="col-md-4 col-sm-6 col-12 mt-4 mt-md-0">
+                            <label for="" class="c-label">Nature du bien</label>
+                            <br>
+                            <select class="form-control form-control-lg input-box c-select c-Sel" [(ngModel)]="type">
+                          <option disabled selected>Selectionner une nature du bien</option>
+                          <option *ngFor="let bien of listTypeBien" value="{{bien.id}}">{{bien.libelle}}</option>
+                        </select>
+                        </div>
+                        <div class="col-md-2 col-sm-6 col-6 mtbtn">
+                            <button (click)="rechercherBien()" class="main-btn btnStyle" [disabled]="loader">Rechercher</button>
+                            <span *ngIf="loader" class="fal fa-spinner fa-pulse c-loader"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="container loader">
+                    <div class="row">
+                        <div class="">
+                            <div *ngIf="loadSpinner" class="spinLoad">
+                                <div class="text-loader">
+                                    <i class="fa fa-spinner fa-pulse fa-3x loadd"></i><br>
+                                    <h2 class="chargemenent">Chargement en cours...</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div *ngIf="tabLocation.length==0 && !loadSpinner" class="vide">
+                    <h2 class="elementVide">Aucune données !!!</h2>
+                </div>
+
+                <!--cardFinal original -->
+                <div class="row mgRow">
+
+
+                    <!-- Recherche -->
+                    <div class="col-4 mtRe">
+                        <div class="blog-sidebar-area ml-20">
+                            <div class="blog-sidebar-item mt-30">
+                                <div class="sidebar-title">
+                                    <h4 class="title">Recherche</h4>
+                                </div>
+                                <div class="sidebar-categories mt-35">
+                                    <ul>
+                                        <li><a routerLink='/blog-detail' class="bgRe">appartements à louer<span>26</span></a></li>
+                                        <li><a routerLink='/blog-detail' class="bgRe">appartements meubles<span>71</span></a></li>
+                                        <li><a routerLink='/blog-detail' class="bgRe">maison à louer<span>30</span></a></li>
+                                        <li><a routerLink='/blog-detail' class="bgRe">chambre à louer<span>56</span></a></li>
+                                        <li><a routerLink='/blog-detail' class="bgRe">hangar à louer<span>60</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="blog-sidebar-item mt-10">
+                                <div class="sidebar-title">
+                                    <h4 class="title">Zone</h4>
+                                </div>
+                                <div class="sidebar-tags mt-35">
+                                    <ul>
+                                        <li><a routerLink='/blog-detail'>Dakar</a></li>
+                                        <li><a routerLink='/blog-detail'>Mbao</a></li>
+                                        <li><a routerLink='/blog-detail'>Pikine</a></li>
+                                    </ul>
+                                    <ul>
+                                        <li><a routerLink='/blog-detail'>Parcelle Assainie</a></li>
+                                        <li><a routerLink='/blog-detail'>Almadie</a></li>
+                                        <li><a routerLink='/blog-detail'>HML</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="blog-sidebar-item mt-30">
+                                <div class="sidebar-title">
+                                    <h4 class="title">Prix</h4>
+                                </div>
+                                <div class="sidebar-search-item text-center mt-10">
+                                    <form action="#">
+                                        <div class="input-box">
+                                            <input type="number" min="0" max="999999999999" placeholder="Min" [(ngModel)]="min" oninput="validity.valid||(value='');">
+                                        </div>
+                                        <div class="input-box">
+                                            <input type="number" min="0" max="999999999999" placeholder="Max" [(ngModel)]="max" oninput="validity.valid||(value='');">
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end Recherche -->
+
+
+
+
+
+
+                    <div class="col-4 mt-3 wow fadeInUp" *ngFor="let location of tabLocation">
+                        <div class="card c-cardShadow">
+                            <div class="row no-gutters">
+                                <div class="col-sm-5">
+                                    <img src="{{location.images[0].url}}" class="card-img-top c-imageBor" alt="...">
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="card-body">
+
+                                        <span class="badge badge-danger c-badge">{{location.montant | number:'1.0-0':'fr'}} XOF</span>
+                                        <span class="colorLocalite"><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{location.zone}}-{{location.adresse}}</span>
+                                        <h5 class="card-title">{{location.typeBiens?.libelle}}</h5>
+                                        <p class="card-text c-desc">{{location.description}}</p>
+                                        <a [routerLink]="['/detailbien', location.id]" href="#" class="btn btn-sm float-right c-btn">Voir plus</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-4 mt-3 wow fadeInUp" *ngFor="let location of tabLocation">
+                        <div class="card c-cardShadow">
+                            <div class="row no-gutters">
+                                <div class="col-sm-5">
+                                    <img src="{{location.images[0].url}}" class="card-img-top c-imageBor" alt="...">
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="card-body">
+
+                                        <span class="badge badge-danger c-badge">{{location.montant | number:'1.0-0':'fr'}} XOF</span>
+                                        <span class="colorLocalite"><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{location.zone}}-{{location.adresse}}</span>
+                                        <h5 class="card-title">{{location.typeBiens?.libelle}}</h5>
+                                        <p class="card-text c-desc">{{location.description}}</p>
+                                        <a [routerLink]="['/detailbien', location.id]" href="#" class="btn btn-sm float-right c-btn">Voir plus</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--fin cardFinal -->
+            </div>
+        </div>
+    </div>
+</div>
+<!--====== SHOP PART ENDS ======-->
+<app-footer2></app-footer2>

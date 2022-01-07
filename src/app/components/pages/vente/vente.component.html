@@ -1,0 +1,114 @@
+<app-header></app-header>
+<!--====== PAGE TITLE PART START ======-->
+<div class="page-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-title-item text-center">
+                    <h2 class="title">Vente Maisons, Appartements & Terrains</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- card vente -->
+<div class="portfolio-3-area pt-115 pb-120 c-back ">
+    <div class="container">
+
+        <div class="card p-4 cardRechercher">
+            <!-- <form method="" class="mb-0 c-form"> -->
+            <div class="row clearfix">
+                <div class="col-md-3 col-sm-6 col-12 mt-4 mt-md-0">
+                    <label for="" class="c-label">Localité</label>
+                    <br>
+                    <input type="text" class="c-input" placeholder="Localité" [(ngModel)]="zone">
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-12 mt-4 mt-md-0 c-sel">
+                    <label for="" class="c-label">Nature du bien</label>
+                    <br>
+                    <select class="form-control form-control-lg input-box c-select" [(ngModel)]="type">
+                    <option disabled selected>Selectionner une nature du bien</option>
+                    <option *ngFor="let bien of listTypeBien" value="{{bien.id}}">{{bien.libelle}}</option>
+                  </select>
+                </div>
+
+                <div class="col-md-3 col-sm-6 col-12 mt-4 mt-md-0">
+                    <label for="" class="c-label">Nature Bien</label>
+                    <br>
+                    <select class="form-control form-control-lg input-box c-select" [(ngModel)]="natureBien">
+                  <option disabled selected>Selectionner la nature du bien</option>
+                  <option *ngFor="let natureB of listNatureBiens" value="{{natureB.id}}">{{natureB.libelle}}</option>
+                </select>
+                </div>
+
+                <div class="col-md-2 col-sm-6 col-6 mtbtn">
+                    <button (click)="rechercherBien()" class="main-btn btnStyle" [disabled]="loader">Rechercher</button>
+                    <span *ngIf="loader" class="fal fa-spinner fa-pulse c-loader"></span>
+                </div>
+
+            </div>
+            <!-- </form> -->
+        </div>
+
+        <div class="container loader">
+            <div class="row">
+                <div class="">
+                    <div *ngIf="loadSpinner" class="spinLoad">
+                        <div class="text-loader">
+                            <i class="fa fa-spinner fa-pulse fa-3x loadd"></i><br>
+                            <h2 class="chargemenent">Chargement en cours...</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div *ngIf="tabVente.length==0 && !loadSpinner" class="vide">
+            <h2 class="elementVide">Aucune données !!!</h2>
+        </div>
+
+
+        <!-- <div class="container loader">
+          <div class="row">
+              <div class="">
+                  <div *ngIf="message" class="spinLoad">
+                      <div class="text-loader">
+                          <h2 class="chargemenent">aucune données trouvées...</h2>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div> -->
+
+
+        <div class="row justify-content-center c-cardMarge h-100">
+            <div class="col-lg-4 col-md-6 col-sm-9 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s" *ngFor="let vente of tabVente">
+                <div class="single-portfolio mt-30 c-border">
+                    <div class="portfolio-thumb">
+                        <span class="badge badge-danger c-badge2">{{vente?.natureBien?.libelle}}</span>
+                        <span class="badge badge-danger c-badge">{{vente?.montant | number:'1.0-0':'fr'}} XOF</span>
+                        <img class="c-imgCard" src="{{vente?.images.length==0 ? '' : vente?.images[0].url}}" alt="">
+                    </div>
+                    <div class="portfolio-content c-padd">
+                        <span class="colorLocalite"><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{vente?.zone}}-{{vente?.adresse}}</span><br>
+                        <a routerLink='/detailbien'>
+                            <h4 class="title">{{vente?.typeBiens?.libelle}}</h4>
+                        </a>
+                        <p>{{vente?.description}}</p>
+                        <a [routerLink]="['/detailbien', vente?.id]" class="btn btn-sm float-right c-btn">Voir plus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- card vente  end-->
+
+
+
+<app-footer2></app-footer2>

@@ -1,0 +1,15 @@
+.bg_cover {
+    background-color: #1e4482;
+}
+
+.footer-area.footer-area-2 .footer-overlay .widget-item-2.widget-item-3 a {
+    color: white;
+    border-radius: 32px;
+}
+
+.hrStyle {
+    margin-top: -8px;
+    height: 2px;
+    width: 10%;
+    background: #FFFFFF;
+}

@@ -1,0 +1,272 @@
+<app-header></app-header>
+<!--====== PAGE TITLE PART START ======-->
+<div class="page-title-area c-background">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-title-item text-center">
+                    <h2 class="title">Vente Maisons, Appartements & Terrains</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--====== PAGE TITLE PART ENDS ======-->
+<!--====== BLOG STANDARD PART START ======-->
+<div class="blog-standard-area pt-40 pb-120">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+
+            <!-- Menu à gauche -->
+            <div class="col-lg-4 col-md-6 col-sm-8">
+                <!-- <app-blogsidebar></app-blogsidebar> -->
+
+                <div class="blog-sidebar-area ml-20">
+                    <div class="blog-sidebar-item borderRecherche">
+                        <div class="sidebar-title">
+                            <h4 class="title">Recherche globale </h4>
+                        </div>
+                        <div class="sidebar-search-item text-center mt-10 mb-20">
+                            <div class="search">
+                                <input type="text" placeholder="Rechercher" [(ngModel)]="searchGlobal"
+                                    class="inputSearch">
+                                <button (click)="rechercherGlobale()" class=" btnStyleSearch"
+                                    [disabled]="loaderGlobale"> <span *ngIf="loaderGlobale"
+                                        class="fa fa-spinner fa-pulse"></span>&nbsp;&nbsp; <span *ngIf="!loaderGlobale"
+                                        class="fa fa-search"></span></button>
+                            </div>
+
+                        </div>
+                        <div class="sidebar-title">
+                            <h4 class="title">Nature du bien</h4>
+                        </div>
+                        <div class="sidebar-categories mt-20">
+                            <ul id="grouplist" class="list-group">
+                                <li *ngFor="let t of listTypeBien" (click)="selectType(t.libelle)"
+                                    [ngClass]="{'active': type == t.libelle, 'list-group-item': true}">
+                                    {{ t.libelle }}
+                                </li>
+                            </ul>
+                        </div>
+                        <hr>
+                        <!-- Zone -->
+                        <div class="sidebar-title">
+                            <h4 class="title">Zone</h4>
+                        </div>
+                        <div class="sidebar-tags mt-20">
+                            <!-- <ul>
+                              <li *ngFor="let zone of listZone"><a>{{zone}}</a></li>
+                          </ul> -->
+
+
+                            <div class="btn-group btn-sm" role="group" *ngFor="let z of listZone"
+                                (click)="selectZone(z)">
+                                <label class="btn btn-outline-danger c-btnnn" for="radioBtn1"
+                                    [ngClass]="{'active': zone == z}">{{z}}</label>
+                            </div>
+
+                        </div>
+                        <hr>
+                        <!-- Prix -->
+                        <div class="sidebar-title">
+                            <h4 class="title">Prix</h4>
+                        </div>
+                        <div class="sidebar-search-item text-center mt-20">
+                            <!-- <form> -->
+                            <div class="input-box">
+                                Prix min : <input type="text" placeholder="Min" [(ngModel)]="min" [mask]="'separator'">
+                            </div>
+                            <div class="input-box">
+                                Prix max : <input type="text" placeholder="Max" [(ngModel)]="max" [mask]="'separator'">
+                            </div>
+                            <button (click)="rechercherBien()" class="top-btn btnStyle" [disabled]="loader"> <span
+                                    *ngIf="loader" class="fa fa-spinner fa-pulse"></span>&nbsp;&nbsp;
+                                Rechercher</button>
+                            <!-- </form> -->
+                        </div>
+                        <br>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end Menu à gauche -->
+
+            <div class="col-lg-8">
+                <div class="blog-standard">
+
+
+                    <div class="single-blog-standard mt-15">
+
+                        <div class="container loader">
+                            <div class="row">
+                                <div class="">
+                                    <div *ngIf="loadSpinner" class="spinLoad">
+                                        <div class="text-loader">
+                                            <i class="fa fa-spinner fa-pulse fa-3x loadd"></i><br>
+                                            <h2 class="chargemenent">Chargement en cours...</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="tabVente.length==0 && !loadSpinner && !isSearch" class="vide">
+                            <h2>La liste est vide !!!</h2>
+                        </div>
+                        <div *ngIf="tabVente.length==0 && !loadSpinner && isSearch"
+                            class="aucun row justify-content-center">
+                            <div class="noData">Aucun résultat trouvé, vous pouvez faire une demande en cliquant sur le
+                                button ci-dessous</div>
+                            <button class="mt-40 btnStyle text-center" (click)="initForm(content)">Faire une demande
+                                d'un bien </button>
+                        </div>
+                        <div class="mt-3 wow fadeInUp" *ngFor="let location of tabVente">
+                            <div class="card c-cardShadow">
+                                <div class="row no-gutters">
+                                    <div class="col-sm-5">
+                                        <img src="{{location.images[0]?.url}}" class="card-img-top c-imageBor"
+                                            alt="...">
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <div class="card-body">
+
+                                            <span class="badge badge-danger c-badge">{{location.montant |
+                                                number:'1.0-0':'fr'}} XOF</span>
+                                            <span class="colorLocalite"><i
+                                                    class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{location.zone}} -
+                                                {{location.adresse}}</span>
+                                            <h5 class="card-title">{{location.typeBiens?.libelle}}</h5>
+                                            <p class="card-text c-desc" *ngFor="let item of location.description">
+                                                <span *ngIf="item.libelle != '' && item.description != ''">
+                                                    {{item.libelle}} : {{item.description}}
+                                                </span>
+                                            </p>
+                                            <a [routerLink]="['/detailbien', location.id]" href="#"
+                                                class="btn btn-sm float-right c-btn">Voir plus</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Faire une demande d'un bien</h4>
+
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"
+            [disabled]="desactiverButton">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="rechercheBienForm" (ngSubmit)="onSubmit()">
+
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="nom" class="c-label">Nom</label>
+                    <div class="input-group">
+                        <input id="nom" name="nom" class="form-control" formControlName="nom"
+                            [ngClass]="{ 'is-invalid': (submitted || rechercheBienForm.get('nom').dirty || rechercheBienForm.get('nom').touched) && rechercheBienForm.get('nom').errors?.required}">
+                        <div *ngIf="rechercheBienForm.get('nom').errors" class="invalid-feedback">
+                            <div
+                                *ngIf="(submitted || rechercheBienForm.get('nom').dirty || rechercheBienForm.get('nom').touched) && rechercheBienForm.get('nom').errors?.required">
+                                le nom est obligatoire</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="prenom" class="c-label">Prénom</label>
+                    <div class="input-group">
+                        <input id="prenom" name="prenom" class="form-control" formControlName="prenom"
+                            [ngClass]="{ 'is-invalid': (submitted || rechercheBienForm.get('prenom').dirty || rechercheBienForm.get('prenom').touched) && rechercheBienForm.get('prenom').errors?.required}">
+                        <div *ngIf="rechercheBienForm.get('prenom').errors" class="invalid-feedback">
+                            <div
+                                *ngIf="(submitted || rechercheBienForm.get('prenom').dirty || rechercheBienForm.get('prenom').touched) && rechercheBienForm.get('prenom').errors?.required">
+                                le prénom est obligatoire</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="telephone" class="c-label">Téléphone</label>
+                    <div class="input-group">
+                        <input id="telephone" name="telephone" class="form-control" formControlName="telephone"
+                            [ngClass]="{ 'is-invalid': (submitted || rechercheBienForm.get('telephone').dirty || rechercheBienForm.get('telephone').touched) && (rechercheBienForm.get('telephone').errors?.required || rechercheBienForm.get('telephone').errors?.pattern)}">
+                        <div *ngIf="rechercheBienForm.get('telephone').errors" class="invalid-feedback">
+                            <div
+                                *ngIf="(submitted || rechercheBienForm.get('telephone').dirty || rechercheBienForm.get('telephone').touched) && rechercheBienForm.get('telephone').errors?.required">
+                                le téléphone est obligatoire</div>
+                            <div *ngIf="rechercheBienForm.get('telephone').errors?.pattern">Numéro téléphone invalide
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="email" class="c-label">Email</label>
+                    <div class="input-group">
+                        <input id="email" name="email" class="form-control" formControlName="email"
+                            [ngClass]="{ 'is-invalid': (submitted || rechercheBienForm.get('email').dirty || rechercheBienForm.get('email').touched ) && (rechercheBienForm.get('email').errors?.required || rechercheBienForm.get('email').errors?.pattern)}">
+                        <div *ngIf="rechercheBienForm.get('email').errors" class="invalid-feedback">
+                            <div
+                                *ngIf="(submitted || rechercheBienForm.get('email').dirty || rechercheBienForm.get('email').touched ) && rechercheBienForm.get('email').errors?.required">
+                                l'email est obligatoire</div>
+                            <div *ngIf="rechercheBienForm.get('email').errors?.pattern">Email invalide</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-6 form-group">
+                    <label for="sexe" class="c-label">Sexe</label>
+                    <select class="form-control" name="sexe" (change)="checknumeroCni()" formControlName="sexe"
+                        [ngClass]="{ 'is-invalid': (submitted || rechercheBienForm.get('sexe').dirty || rechercheBienForm.get('sexe').touched) && rechercheBienForm.get('sexe').errors?.required}">
+                        <option value="" disabled>Choisir le sexe</option>
+                        <option *ngFor="let ps of tabSexe" value="{{ps.value}}">{{ ps.name }}</option>
+                    </select>
+                    <div *ngIf="rechercheBienForm.get('sexe').errors" class="invalid-feedback">
+                        <div
+                            *ngIf="(submitted || rechercheBienForm.get('sexe').dirty || rechercheBienForm.get('sexe').touched) && rechercheBienForm.get('sexe').errors?.required">
+                            le sexe est obligatoire</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 form-group">
+                    <label for="numeroCni" class="c-label">Numero Piéce</label>
+                    <div class="input-group">
+                        <input id="numeroCni" (blur)="checknumeroCni()" name="numeroCni" class="form-control"
+                            formControlName="numeroCni"
+                            [ngClass]="{ 'is-invalid': (submitted || rechercheBienForm.get('numeroCni').dirty || rechercheBienForm.get('numeroCni').touched) && rechercheBienForm.get('numeroCni').errors?.required}">
+                        <div *ngIf="rechercheBienForm.get('numeroCni').errors" class="invalid-feedback">
+                            <div
+                                *ngIf="(submitted || rechercheBienForm.get('numeroCni').dirty || rechercheBienForm.get('numeroCni').touched) && rechercheBienForm.get('numeroCni').errors?.required">
+                                le numéro de piéce est obligatoire</div>
+                        </div>
+                        <div class="pieceError" *ngIf="numeroCniError!=''">{{numeroCniError}} </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center">
+
+                <button type="button" class="btn btn-danger" (click)="modal.close('Save click')"
+                    style="margin-right: 50px;" [disabled]="submitted">Annuler</button>
+                <button data-dismiss="modal" class="btn btn-info btn-ajou" [disabled]="submitted">
+                    <i class="fa fa-spinner fa-pulse" *ngIf="submitted"></i>&nbsp;&nbsp;Ajouter</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+<!--====== BLOG STANDARD PART ENDS ======-->
+<app-footer2></app-footer2>
